@@ -5,6 +5,9 @@
   display: grid;
   grid-template-columns: 33% 33% 33%;
   text-align: center;
+  position: fixed;
+  z-index: 1;
+  background-color: white;
 }
 
 .nav-title {

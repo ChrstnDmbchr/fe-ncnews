@@ -1,3 +1,16 @@
 .articles {
-  margin-top: 10px;
+  padding-top: 60px;
+}
+
+.articles-banner {
+  height: 200px;
+  background-image: url('../assets/banner.jpg');
+  width: 100%;
+}
+
+.articles-title {
+  color: white;
+  height: 100%;
+  padding-top: 60px;
+  font-size: 100px;
 }
