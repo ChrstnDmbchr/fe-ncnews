@@ -8,7 +8,7 @@ class Post extends Component {
   render() {
     const { title, created_by, belongs_to, body, comment_count, votes } = this.props;
     return (
-      <div className="post section">
+      <div className="post section animated slideInUp">
         <div className="post-votes">
           <i className="fa fa-angle-up fa-3x post-vote-up"></i>
           <i className="fa fa-angle-down fa-3x post-vote-down"></i>
