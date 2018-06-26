@@ -1,0 +1,25 @@
+.nav {
+  height: 50px;
+  width: 100vw;
+  box-shadow: -4px 1px 39px -6px rgba(0,0,0,0.63);
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  text-align: center;
+}
+
+.nav-title {
+  font-size: 30px;
+  color: red;
+}
+
+.flash {
+  animation: blinker 1s step-start 0s infinite;
+}
+
+@keyframes blinker {  
+  50% { opacity: 0.0; }
+}
+
+.dropdown {
+  margin-top: 6px;
+}

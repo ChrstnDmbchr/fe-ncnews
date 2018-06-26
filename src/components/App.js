@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
+import Nav from "./Nav"
 
 class App extends Component {
   render() {
     return (
-      <div>
-        <header>
-          <h1>Northcoders News</h1>
-        </header>
-      </div>
+      <BrowserRouter>
+        <div className="app">
+          <Nav />
+
+        </div>
+      </BrowserRouter>
     );
   }
 }
