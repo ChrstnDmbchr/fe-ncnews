@@ -5,25 +5,22 @@ import "../styles/Nav.css"
 
 class Nav extends Component {
   state= {
-    topics: {},
+    topics: this.props.topics,
     isDropdownActive: false,
-    loading: true,
-  }
+    loading: this.props.loading,
+  };
 
   toggleDropdown = () => {
     this.setState({ isDropdownActive: !this.state.isDropdownActive })
-  }
-
-  componentDidMount () {
-    fetch('https://fast-hamlet-42674.herokuapp.com/api/topics')
-    .then(res => {
-      return res.json();
-    })
-    .then(allTopics => {
-      const { topics } = allTopics
-      this.setState({ topics, loading: false });
-    });
   };
+
+  componentWillReceiveProps (newProps) {
+    console.log(newProps)
+    this.setState({ 
+      topics: newProps.topics,
+      loading: newProps.loading 
+    })
+  }
 
   render() {
     const { topics, isDropdownActive, loading } = this.state;
@@ -36,13 +33,13 @@ class Nav extends Component {
               <button onClick={this.toggleDropdown} className="button" aria-haspopup="true" aria-controls="dropdown-menu">
               <span>Topics</span>
               <span className="icon is-small">
-                <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                <i className="fa fa-sort-desc" aria-hidden="true"></i>
               </span>
               </button>
             </div>
           <div className="dropdown-menu" id="dropdown-menu" role="menu">
             <div className="dropdown-content">
-              <Link key={'frontpage'} to='/' className="dropdown-item" onClick={this.toggleDropdown}>
+              <Link key={'frontpage'} to='/Frontpage' className="dropdown-item" onClick={this.toggleDropdown}>
                 Frontpage
               </Link>
               {loading ? '' : topics.map(topic => {
