@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import "../styles/Nav.css"
 
@@ -15,12 +15,11 @@ class Nav extends Component {
   };
 
   componentWillReceiveProps (newProps) {
-    console.log(newProps)
     this.setState({ 
       topics: newProps.topics,
       loading: newProps.loading 
-    })
-  }
+    });
+  };
 
   render() {
     const { topics, isDropdownActive, loading } = this.state;
@@ -44,7 +43,7 @@ class Nav extends Component {
               </Link>
               {loading ? '' : topics.map(topic => {
                 return (
-                  <Link key={topic._id} to={`/${topic.title}`} className="dropdown-item" onClick={this.toggleDropdown}>
+                  <Link key={topic._id} to={`/${topic._id}`} className="dropdown-item" onClick={this.toggleDropdown}>
                     {topic.title}
                   </Link>
                 )

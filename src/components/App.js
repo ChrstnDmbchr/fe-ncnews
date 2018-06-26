@@ -33,7 +33,7 @@ class App extends Component {
               <Route exact path="/" render={() => {
                 return <Redirect to="/Frontpage" />
               }} />
-              <Route path="/:topicName" component={Articles} />
+              <Route path="/:topicId" component={Articles} />
               <Route render={() => {
                 return (
                   <h4>404 - ya dun goof'd</h4>
