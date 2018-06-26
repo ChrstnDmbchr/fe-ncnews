@@ -10,8 +10,8 @@ class Post extends Component {
     return (
       <div className="post section">
         <div className="post-votes">
-          <i className="fa fa-angle-up fa-3x"></i>
-          <i className="fa fa-angle-down fa-3x"></i>
+          <i className="fa fa-angle-up fa-3x post-vote-up"></i>
+          <i className="fa fa-angle-down fa-3x post-vote-down"></i>
           <p>votes: {votes}</p>
         </div>
         <div className="post-body">

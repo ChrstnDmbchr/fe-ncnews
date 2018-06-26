@@ -1,6 +1,22 @@
 .post {
   display: grid;
   grid-template-columns: 10% 90%;
+  margin-bottom: 20px;
+  border: 1px solid white;
+}
+
+.post:hover {
+  cursor: pointer;
+}
+
+.post-vote-up:hover {
+  color: green;
+  cursor: pointer;
+}
+
+.post-vote-down:hover {
+  color: red;
+  cursor: pointer;
 }
 
 .post-info {
