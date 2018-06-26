@@ -8,12 +8,22 @@ class Post extends Component {
   render() {
     const { title, created_by, belongs_to, body, comment_count, votes } = this.props;
     return (
-      <div class="post section">
-        <div class="container">
-          <h1 class="title">{title}</h1>
-          <h5 class="subtitle">
+      <div className="post section">
+        <div className="post-votes">
+          <i className="fa fa-angle-up fa-3x"></i>
+          <i className="fa fa-angle-down fa-3x"></i>
+          <p>votes: {votes}</p>
+        </div>
+        <div className="post-body">
+          <h1 className="title">{title}</h1>
+          <h5 className="subtitle">
             {body}
           </h5>
+          <div className="post-info">
+            <p>Created By: {created_by.username}</p>
+            <p>Topic: {belongs_to.title}</p>
+            <p>Comments: {comment_count}</p>
+          </div>
         </div>
       </div>
     );

@@ -1,0 +1,13 @@
+.post {
+  display: grid;
+  grid-template-columns: 10% 90%;
+}
+
+.post-body {
+  width: %;
+}
+
+.post-info {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+}

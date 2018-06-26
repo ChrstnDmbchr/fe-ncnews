@@ -41,7 +41,7 @@ class Articles extends Component {
                     title={post.title}
                     created_by={post.created_by}
                     belongs_to={post.belongs_to} 
-                    comments_count={post.comments_count}
+                    comment_count={post.comment_count}
                     votes={post.votes}
                     body={post.body}/>
             })}
