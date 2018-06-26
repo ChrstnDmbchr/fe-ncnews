@@ -8,7 +8,7 @@ class App extends Component {
   state = {
     topics: [],
     loading: true,
-  }
+  };
 
   componentDidMount () {
     fetch('https://fast-hamlet-42674.herokuapp.com/api/topics')
@@ -19,7 +19,7 @@ class App extends Component {
       const { topics } = allTopics
       this.setState({ topics, loading: false });
     });
-  }
+  };
 
   render() {
     const { topics, loading } = this.state;
@@ -44,7 +44,7 @@ class App extends Component {
         </div>
       </BrowserRouter>
     );
-  }
-}
+  };
+};
 
 export default App;

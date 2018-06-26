@@ -6,6 +6,7 @@
   height: 200px;
   background-image: url('../assets/banner.jpg');
   width: 100%;
+  background-size: 100%
 }
 
 .articles-title {
