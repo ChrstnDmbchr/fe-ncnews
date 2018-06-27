@@ -5,6 +5,7 @@ import Nav from "./Nav.js";
 import Articles from "./Articles.js";
 import UserProfile from "./UserProfile.js";
 import SinglePost from "./SinglePost.js";
+import PageNotFound from "./PageNotFound"
 
 class App extends Component {
   state = {
@@ -38,11 +39,7 @@ class App extends Component {
               <Route path="/topics/:topicId" component={Articles} />
               <Route path="/users/:username" component={UserProfile} />
               <Route exact path="/post/:postId" component={SinglePost} />
-              <Route render={() => {
-                return (
-                  <h4>404 - ya dun goof'd</h4>
-                )
-              }} />
+              <Route component={PageNotFound} />
             </Switch>
           </div>
         </div>
