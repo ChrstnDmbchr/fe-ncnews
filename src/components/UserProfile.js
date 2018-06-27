@@ -33,9 +33,7 @@ class UserProfile extends Component {
     return (
       <div className="userprofile">
         <div className="userprofile-banner">
-          <div className="userprofile-user">
-            <h1 className="userprofile-title">Users</h1>
-          </div>
+          <h1 className="userprofile-title">Users</h1>
         </div>
         {loading ? (
           <div />
