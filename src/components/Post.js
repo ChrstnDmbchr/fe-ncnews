@@ -15,7 +15,7 @@ class Post extends Component {
           <p>votes: {votes}</p>
         </div>
         <div className="post-body">
-          <h1 className="title">{title}</h1>
+          <Link to={`/post/${this.props.id}`}><h1 className="title">{title}</h1></Link>
           <h5 className="subtitle">
             {body}
           </h5>

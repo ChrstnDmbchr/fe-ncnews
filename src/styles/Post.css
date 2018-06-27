@@ -5,7 +5,7 @@
   border: 1px solid white;
 }
 
-.post:hover {
+.post-body .title:hover {
   cursor: pointer;
 }
 
