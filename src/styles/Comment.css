@@ -1,0 +1,16 @@
+.comment {
+  display: grid;
+  grid-template-columns: 10% 90%;
+  margin-bottom: 20px;
+  border: 1px solid white;
+}
+
+.comment-vote-up:hover {
+  color: green;
+  cursor: pointer;
+}
+
+.comment-vote-down:hover {
+  color: red;
+  cursor: pointer;
+}

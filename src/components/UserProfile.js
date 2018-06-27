@@ -48,7 +48,7 @@ class UserProfile extends Component {
                 <i>{user.name}</i>
               </p>
               <img className="userprofile-pic" src={user.avatar_url} alt="pic" />
-              <p className="subtitle is-3">Post by {username}:</p>
+              <p className="subtitle is-3">Posts by: {username}</p>
             </div>
             <div>
               {user.articles.map(post => {
