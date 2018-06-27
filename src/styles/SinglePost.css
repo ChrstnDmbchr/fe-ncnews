@@ -1,3 +1,29 @@
 .singlepost {
   padding-top: 60px;
 }
+
+.singlepost-banner {
+  height: 200px;
+  background-image: url('../assets/postbanner.jpg');
+  background-position: bottom;
+  width: 100%;
+  background-size: 100%
+}
+
+.singlepost-title {
+  color: white;
+  height: 100%;
+  padding-top: 60px;
+  font-size: 100px;
+}
+
+.singlepost-info {
+  padding: 30px;
+  text-align: left;
+  background-color: #e8e8e8
+}
+
+.singlepost-info-back {
+  text-align: left;
+  padding-bottom: 20px;
+}
