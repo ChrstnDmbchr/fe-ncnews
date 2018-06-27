@@ -20,7 +20,7 @@ class Post extends Component {
             {body}
           </h5>
           <div className="post-info">
-            <p>Created By: {created_by.username}</p>
+            <p>Created By: <Link to={`/users/${created_by.username}`}>{created_by.username}</Link></p>
             <p>Topic: {belongs_to.title}</p>
             <p>Comments: {comment_count}</p>
           </div>

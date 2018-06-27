@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
 import Nav from "./Nav.js"
 import Articles from "./Articles.js"
+import UserProfile from './UserProfile.js';
 
 class App extends Component {
   state = {
@@ -31,9 +32,10 @@ class App extends Component {
           <div className="container">
             <Switch>
               <Route exact path="/" render={() => {
-                return <Redirect to="/Frontpage" />
+                return <Redirect to="/topics/Frontpage" />
               }} />
-              <Route path="/:topicId" component={Articles} />
+              <Route path="/topics/:topicId" component={Articles} />
+              <Route path="/users/:username" component={UserProfile} />
               <Route render={() => {
                 return (
                   <h4>404 - ya dun goof'd</h4>

@@ -1,0 +1,30 @@
+.userprofile {
+  padding-top: 60px;
+}
+
+.userprofile-banner {
+  height: 200px;
+  background-image: url('../assets/userbanner.jpg');
+  width: 100%;
+  background-size: 100%;
+  background-position: bottom
+}
+
+.userprofile-title {
+  color: white;
+  height: 100%;
+  padding-top: 60px;
+  font-size: 100px;
+}
+
+.userprofile-info {
+  text-align: center;
+}
+
+.userprofile-pic {
+  border-radius: 50%;
+  border: 1px solid black;
+  height: 100px;
+}
+
+

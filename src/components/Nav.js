@@ -38,12 +38,12 @@ class Nav extends Component {
             </div>
           <div className="dropdown-menu" id="dropdown-menu" role="menu">
             <div className="dropdown-content">
-              <Link key={'frontpage'} to='/Frontpage' className="dropdown-item" onClick={this.toggleDropdown}>
+              <Link key={'frontpage'} to='/topics/Frontpage' className="dropdown-item" onClick={this.toggleDropdown}>
                 Frontpage
               </Link>
               {loading ? '' : topics.map(topic => {
                 return (
-                  <Link key={topic._id} to={`/${topic._id}`} className="dropdown-item" onClick={this.toggleDropdown}>
+                  <Link key={topic._id} to={`/topics/${topic._id}`} className="dropdown-item" onClick={this.toggleDropdown}>
                     {topic.title}
                   </Link>
                 )

@@ -11,6 +11,22 @@ class Articles extends Component {
     title: '',
   };
 
+  componentDidMount() {
+    const { topicId } = this.props.match.params
+    fetch(
+      topicId === 'Frontpage' ? `https://fast-hamlet-42674.herokuapp.com/api/articles`
+      :`https://fast-hamlet-42674.herokuapp.com/api/topics/${topicId}/articles`
+    )
+    .then(res => {
+      return res.json();
+    })
+    .then(allArticles => {
+      const { articles } = allArticles;
+      this.setState({ articles, loading: false, title: topicId });
+    })
+    .catch(err => { console.log(err) })
+  }
+
   componentWillReceiveProps(newProps) {
     const { topicId } = newProps.match.params
     fetch(
@@ -23,7 +39,8 @@ class Articles extends Component {
     .then(allArticles => {
       const { articles } = allArticles;
       this.setState({ articles, loading: false, title: topicId });
-    });
+    })
+    .catch(err => { console.log(err) })
   };
 
   render() {
