@@ -28,6 +28,8 @@ class Articles extends Component {
   }
 
   componentWillReceiveProps(newProps) {
+    if(newProps.match.params.topicId === this.props.match.params.topicId) return;
+
     const { topicId } = newProps.match.params
     fetch(
       topicId === 'Frontpage' ? `https://fast-hamlet-42674.herokuapp.com/api/articles`
