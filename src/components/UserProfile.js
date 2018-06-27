@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
+import Post from "./Post"
+
 import "../styles/UserProfile.css";
 
 class UserProfile extends Component {
@@ -22,6 +24,10 @@ class UserProfile extends Component {
       .catch(err => console.log(err));
   }
 
+  goBack = () => {
+    this.props.history.goBack()
+  }
+
   render() {
     const { loading, username, user } = this.state;
     return (
@@ -34,12 +40,31 @@ class UserProfile extends Component {
         {loading ? (
           <div />
         ) : (
-          <div className="userprofile-info">
-            <p className="title is-1">{username}</p>
-            <p className="subtitle is-3">
-              <i>{user.name}</i>
-            </p>
-            <img className="userprofile-pic" src={user.avatar_url} alt="pic" />
+          <div>
+            <div className="userprofile-info">
+              <div className="userprofile-info-back">
+                <a className="button" onClick={this.goBack}>Go Back</a>
+              </div>
+              <p className="title is-1">{username}</p>
+              <p className="subtitle is-3">
+                <i>{user.name}</i>
+              </p>
+              <img className="userprofile-pic" src={user.avatar_url} alt="pic" />
+              <p className="subtitle is-3">Post by {username}:</p>
+            </div>
+            <div>
+              {user.articles.map(post => {
+              return <Post 
+                      key={post._id}
+                      id={post._id}
+                      title={post.title}
+                      created_by={post.created_by}
+                      belongs_to={post.belongs_to} 
+                      comment_count={post.comment_count}
+                      votes={post.votes}
+                      body={post.body}/>
+              })}
+            </div>
           </div>
         )}
       </div>

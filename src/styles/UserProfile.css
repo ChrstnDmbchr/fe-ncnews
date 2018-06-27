@@ -18,13 +18,25 @@
 }
 
 .userprofile-info {
+  padding-bottom: 30px;
   text-align: center;
+  background-color: #e8e8e8
 }
 
 .userprofile-pic {
   border-radius: 50%;
   border: 1px solid black;
   height: 100px;
+}
+
+.userprofile-info-back {
+  text-align: left;
+  padding-top: 15px;
+  padding-left: 15px;
+}
+
+.userprofile-info-back a {
+  padding-right: 10px;
 }
 
 
