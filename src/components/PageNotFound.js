@@ -10,8 +10,8 @@ class PageNotFound extends Component {
         <p>¯\_(ツ)_/¯</p>
         <p>404</p>
       </div>
-    )
-  }
+    );
+  };
 };
 
 export default PageNotFound;

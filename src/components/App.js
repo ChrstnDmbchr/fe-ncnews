@@ -5,7 +5,7 @@ import Nav from "./Nav.js";
 import Articles from "./Articles.js";
 import UserProfile from "./UserProfile.js";
 import SinglePost from "./SinglePost.js";
-import PageNotFound from "./PageNotFound"
+import PageNotFound from "./PageNotFound";
 
 class App extends Component {
   state = {
