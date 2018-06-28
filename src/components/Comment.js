@@ -41,7 +41,7 @@ class Comment extends Component {
 
   render() {
     const { created_by, body } = this.props;
-    const { votes } = this.state;
+    const { votes, id } = this.state;
     return (
       <div className="comment section animated slideInUp">
         <div className="comment-votes">
@@ -50,6 +50,9 @@ class Comment extends Component {
           <p>votes: {votes}</p>
         </div>
         <div className="comment-body">
+          <div className="comment-body-delete">
+            <i className="fa fa-times-circle" aria-hidden="true" onClick={() =>console.log(`deleting comment: ${id}`)}></i>
+          </div>
           <h5 className="subtitle">
             {body}
           </h5>
