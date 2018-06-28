@@ -129,13 +129,13 @@ class SinglePost extends Component {
         {!postStatus.length ? (
           <div />
         ) : postStatus === "success" ? (
-          <div class="singlepost-notification notification is-primary">
-            <button class="delete" onClick={this.clearMessage} />
+          <div className="singlepost-notification notification is-primary">
+            <button className="delete" onClick={this.clearMessage} />
             <strong>Post Successful!</strong>
           </div>
         ) : (
-          <div class="singlepost-notification notification is-danger">
-            <button class="delete" onClick={this.clearMessage} />
+          <div className="singlepost-notification notification is-danger">
+            <button className="delete" onClick={this.clearMessage} />
             <strong>Error - there was an issue when trying to process your post.</strong>
           </div>
         )}
