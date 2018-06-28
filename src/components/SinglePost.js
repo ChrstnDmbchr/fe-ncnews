@@ -67,20 +67,19 @@ class SinglePost extends Component {
         headers: { "Content-Type": "application/json" }
       })
       .then(res => {
-        return res.json();
-      })
-      .then(comment => {
-        if (comment.message !== "comment created") {
+        if (res.status !== 201) {
           this.setState({
             postStatus: "error"
           });
-        } else {
-          this.setState({
-            articleComment: "",
-            comments: this.state.comments.concat([comment.comment]),
-            postStatus: "success"
-          });
-        }
+        } 
+        return res.json();
+      })
+      .then(comment => {
+        this.setState({
+          articleComment: "",
+          comments: this.state.comments.concat([comment.comment]),
+          postStatus: "success"
+        });
       })
       .catch(err => console.log(err));
   };
