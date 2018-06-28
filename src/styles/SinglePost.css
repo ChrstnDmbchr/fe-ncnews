@@ -31,3 +31,10 @@
 .singlepost-postbutton {
   text-align: center;
 }
+
+.singlepost-notification {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  margin-left: 25%;
+  width: 50%;
+}
