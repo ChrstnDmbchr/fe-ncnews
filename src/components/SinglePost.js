@@ -9,6 +9,7 @@ class SinglePost extends Component {
   state = {
     post: {},
     comments: [],
+    articleComment: '',
   };
 
   componentDidMount () {
@@ -34,11 +35,39 @@ class SinglePost extends Component {
   }
 
   goBack = () => {
-    this.props.history.goBack()
+    this.props.history.goBack();
+  };
+
+  setComment = e => {
+    this.setState({
+      articleComment: e.target.value
+    });
+  };
+
+  postArticleComment = () => {
+    const { postId } = this.props.match.params;
+    const { articleComment } = this.state;
+
+    if (!articleComment.length) return;
+
+    fetch(`https://fast-hamlet-42674.herokuapp.com/api/articles/${postId}/comments`,{
+      method: 'POST',
+      body: JSON.stringify({comment: articleComment}),
+      headers: {'Content-Type': 'application/json'}
+    })
+    .then(res => {
+      return res.json();
+    })
+    .then(comment => {
+      this.setState({
+        articleComment: '',
+        comments : this.state.comments.concat([comment.comment]),
+      });
+    });
   };
 
   render() {
-    const { post, comments } = this.state
+    const { post, comments, articleComment } = this.state
     return (
       <div className="singlepost">
         <div className="singlepost-banner">
@@ -56,11 +85,11 @@ class SinglePost extends Component {
         </div>
         <div className="field">
           <div className="control">
-            <textarea className="textarea is-medium" type="text" placeholder={`Post a comment to article - ${post.title}`}></textarea>
+            <textarea className="textarea is-medium" type="text" placeholder={`Post a comment to article - ${post.title}`} onChange={this.setComment} value={articleComment}></textarea>
           </div>
         </div>
         <div className="singlepost-postbutton">
-          <a className="button is-light is-medium">Post</a>
+          <a className="button is-light is-medium" onClick={this.postArticleComment}>Post</a>
         </div>
         <div className="singlepost-comments">
           <p className="subtitle is-3">comments:</p>
