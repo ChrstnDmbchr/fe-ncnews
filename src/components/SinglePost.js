@@ -122,7 +122,7 @@ class SinglePost extends Component {
             className="button is-light is-medium"
             onClick={this.postArticleComment}
           >
-            Post
+            Post Comment
           </a>
         </div>
         {!postStatus.length ? (
