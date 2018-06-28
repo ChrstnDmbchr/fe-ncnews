@@ -4,14 +4,49 @@ import { Link } from 'react-router-dom';
 import "../styles/Comment.css"
 
 class Comment extends Component {
+  state = {
+    votes: this.props.votes,
+    id: this.props.id,
+  }
+
+  postUpVote = () => {
+    fetch(`https://fast-hamlet-42674.herokuapp.com/api/comments/${this.state.id}?vote=up`,{
+      method: 'PUT'
+    })
+    .then(res => {
+      return res.json();
+    })
+    .then(upvote => {
+      this.setState({
+        votes: upvote.vote_count
+      })
+    })
+    .catch(err => console.log(err))
+  }
+
+  postDownVote = () => {
+    fetch(`https://fast-hamlet-42674.herokuapp.com/api/comments/${this.state.id}?vote=down`,{
+      method: 'PUT'
+    })
+    .then(res => {
+      return res.json();
+    })
+    .then(downvote => {
+      this.setState({
+        votes: downvote.vote_count
+      })
+    })
+    .catch(err => console.log(err))
+  }
 
   render() {
-    const { created_by, body, votes } = this.props;
+    const { created_by, body } = this.props;
+    const { votes } = this.state;
     return (
       <div className="comment section animated slideInUp">
         <div className="comment-votes">
-          <i className="fa fa-angle-up fa-3x comment-vote-up"></i>
-          <i className="fa fa-angle-down fa-3x comment-vote-down"></i>
+          <i className="fa fa-angle-up fa-3x comment-vote-up" onClick={this.postUpVote}></i>
+          <i className="fa fa-angle-down fa-3x comment-vote-down" onClick={this.postDownVote}></i>
           <p>votes: {votes}</p>
         </div>
         <div className="comment-body">

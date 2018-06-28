@@ -65,7 +65,7 @@ class SinglePost extends Component {
         <div className="singlepost-comments">
           <p className="subtitle is-3">comments:</p>
           {comments.map(comment => {
-            return <Comment key={comment._id} body={comment.body} votes={comment.votes} created_by={comment.created_by} />
+            return <Comment key={comment._id} id={comment._id} body={comment.body} votes={comment.votes} created_by={comment.created_by} />
           })}
         </div>
       </div>
