@@ -50,7 +50,8 @@ class UserProfile extends Component {
               <p className="subtitle is-3">Posts by: {username}</p>
             </div>
             <div>
-              {user.articles.map(post => {
+              {!user.articles.length ? <div className="userprofile-noposts"><h1>No Posts</h1></div> :
+              user.articles.map(post => {
               return <Post 
                       key={post._id}
                       id={post._id}
