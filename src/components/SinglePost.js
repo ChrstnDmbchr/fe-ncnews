@@ -53,6 +53,23 @@ class SinglePost extends Component {
     });
   };
 
+  deleteSingleComment = (commentId) => {
+    fetch(`https://fast-hamlet-42674.herokuapp.com/api/comments/${commentId}`, {
+      method: 'DELETE'
+    })
+    .then(res => {
+      return res.json()
+    })
+    .then(commentDel => {
+      this.setState({
+        comments: [...this.state.comments].filter(com => {
+          return com._id !== commentId
+        })
+      });
+    })
+    .catch(err => console.log(err))
+  };
+
   postArticleComment = () => {
     const { postId } = this.props.match.params;
     const { articleComment } = this.state;
@@ -148,6 +165,7 @@ class SinglePost extends Component {
                 body={comment.body}
                 votes={comment.votes}
                 created_by={comment.created_by}
+                deleteSingleComment={this.deleteSingleComment}
               />
             );
           })}
