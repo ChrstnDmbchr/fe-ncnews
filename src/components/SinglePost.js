@@ -33,8 +33,8 @@ class SinglePost extends Component {
       })
       .then(allComments => {
         const { comments } = allComments;
-        if (!comments.length) {
-          this.setState({ comments: [] })
+        if (!comments) {
+          return this.setState({ comments: [] })
         }
         this.setState({ comments });
       })

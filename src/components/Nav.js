@@ -66,6 +66,7 @@ class Nav extends Component {
         postStatus: "success" 
       })
     })
+    .catch(err => console.log(err))
   }
 
   componentWillReceiveProps (newProps) {
