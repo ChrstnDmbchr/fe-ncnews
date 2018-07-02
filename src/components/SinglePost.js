@@ -11,6 +11,7 @@ class SinglePost extends Component {
     comments: [],
     articleComment: "",
     postStatus: "",
+    postCommentLoading: false,
   };
 
   componentDidMount() {
@@ -32,6 +33,9 @@ class SinglePost extends Component {
       })
       .then(allComments => {
         const { comments } = allComments;
+        if (!comments) {
+          return this.setState({ comments: [] })
+        }
         this.setState({ comments });
       })
       .catch(err => console.log(err));
@@ -102,7 +106,7 @@ class SinglePost extends Component {
   };
 
   render() {
-    const { post, comments, articleComment, postStatus } = this.state;
+    const { post, comments, articleComment, postStatus, postCommentLoading } = this.state;
     return (
       <div className="singlepost">
         <div className="singlepost-banner">
@@ -136,7 +140,7 @@ class SinglePost extends Component {
         </div>
         <div className="singlepost-postbutton">
           <a
-            className="button is-light is-medium"
+            className={`button is-light is-medium${postCommentLoading ? 'is-loading' : ''}`}
             onClick={this.postArticleComment}
           >
             Post Comment
@@ -157,7 +161,7 @@ class SinglePost extends Component {
         )}
         <div className="singlepost-comments">
           <p className="subtitle is-3">comments:</p>
-          {comments.map(comment => {
+          {!comments.length ? <p>No Comments</p> : comments.map(comment => {
             return (
               <Comment
                 key={comment._id}

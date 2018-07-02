@@ -8,11 +8,66 @@ class Nav extends Component {
     topics: this.props.topics,
     isDropdownActive: false,
     loading: this.props.loading,
+    isModalActive: false,
+    newArticleTitle: '',
+    newArticleBody: '',
+    postArticleLoading: false,
+    postStatus: '',
   };
 
   toggleDropdown = () => {
     this.setState({ isDropdownActive: !this.state.isDropdownActive })
   };
+
+  toggleModal = () => {
+    this.setState({ 
+      isModalActive: !this.state.isModalActive,
+      postStatus: '',
+      newArticleBody: '',
+      newArticleTitle: '',
+    });
+  };
+
+  changeArticleTitle = e => {
+    this.setState({ newArticleTitle: e.target.value })
+  };
+
+  changeArticleBody = e => {
+    this.setState({ newArticleBody: e.target.value })
+  };
+
+  postNewArticle = (e, postData, topicTitle) => {
+    e.preventDefault();
+    this.setState({ 
+      postArticleLoading: !this.state.postArticleLoading,
+      postStatus: ''
+    });
+
+    const topicId = this.state.topics.filter(topic => {
+      return topic.title === topicTitle
+    })[0]._id
+    
+    fetch(`https://fast-hamlet-42674.herokuapp.com/api/topics/${topicId}/articles`,{
+      method: "POST",
+      body: JSON.stringify({ title: postData.title, body: postData.body }),
+      headers: { "Content-Type": "application/json" }
+    })
+    .then(res => {
+      if (res.status !== 201) {
+        this.setState({
+          postStatus: "error"
+        });
+      } 
+      return res.json()
+    })
+    .then(newArticle => {
+      this.setState({ 
+        postArticleLoading: !this.state.postArticleLoading,
+        postStatus: "success" 
+      })
+    })
+    .catch(err => console.log(err))
+  }
 
   componentWillReceiveProps (newProps) {
     this.setState({ 
@@ -22,9 +77,10 @@ class Nav extends Component {
   };
 
   render() {
-    const { topics, isDropdownActive, loading } = this.state;
+    const { topics, isDropdownActive, loading, isModalActive, postArticleLoading, newArticleTitle, newArticleBody, postStatus } = this.state;
 
     return (
+      <div>
       <nav className="nav">
         <div>
           <div className={`dropdown ${isDropdownActive ? 'is-active' : ''}`}>
@@ -56,9 +112,74 @@ class Nav extends Component {
         <h1>NC NEWS<span className="flash">_</span></h1>
       </div>
       <div>
-        Maybe add search here later
+        <button className="button nav-post" onClick={this.toggleModal}>Post new Article</button>
       </div>
       </nav>
+
+      <div className={`modal ${isModalActive ? 'is-active' : ''}`}>
+        <div className="modal-background" onClick={this.toggleModal}></div>
+        <div className="modal-content">
+          <div className="box">
+            <form>
+              <div className="field">
+                <label className="label">Select a topic to post your article to:</label>
+                <div className="control">
+                  <div className="select">
+                    <select ref={'topicSelect'}>
+                      {topics.map(topic => {
+                        return <option key={topic._id}>{topic.title}</option>
+                      })}
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div className="field">
+                <label className="label">Title</label>
+                <div className="control">
+                  <input className="input" type="text" placeholder="Enter the title of your article" onChange={this.changeArticleTitle}/>
+                </div>
+              </div>
+
+              <div className="field">
+                <label className="label">Article Content:</label>
+                <div className="control">
+                  <textarea className="textarea" onChange={this.changeArticleBody}></textarea>
+                </div>
+              </div>
+
+              <div className="field is-grouped">
+                <div className="control">
+                  <button className={`button is-link ${postArticleLoading ? 'is-loading' : ''}`} onClick={(e) => this.postNewArticle(e, {
+                    title: newArticleTitle,
+                    body: newArticleBody
+                  }, this.refs.topicSelect.value)}>Post Article</button>
+                </div>
+                <div className="control">
+                  <button className="button is-text" onClick={this.toggleModal}>Close</button>
+                </div>
+              </div>
+
+              {!postStatus.length ? (
+                <div />
+              ) : postStatus === "success" ? (
+                <div className="singlepost-notification notification is-primary">
+                  <button className="delete" onClick={this.toggleModal} />
+                  <strong>Post Successful!</strong>
+                </div>
+              ) : (
+                <div className="singlepost-notification notification is-danger">
+                  <button className="delete" onClick={this.toggleModal} />
+                  <strong>Error - there was an issue when trying to process your post.</strong>
+                </div>
+              )}
+
+            </form>
+          </div>
+        </div>
+          <button className="modal-close is-large" aria-label="close" onClick={this.toggleModal}></button>
+        </div>
+      </div>
     );
   };
 };
