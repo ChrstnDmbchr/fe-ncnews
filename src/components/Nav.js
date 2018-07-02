@@ -8,10 +8,15 @@ class Nav extends Component {
     topics: this.props.topics,
     isDropdownActive: false,
     loading: this.props.loading,
+    isModalActive: false,
   };
 
   toggleDropdown = () => {
     this.setState({ isDropdownActive: !this.state.isDropdownActive })
+  };
+
+  toggleModal = () => {
+    this.setState({ isModalActive: !this.state.isModalActive })
   };
 
   componentWillReceiveProps (newProps) {
@@ -22,9 +27,10 @@ class Nav extends Component {
   };
 
   render() {
-    const { topics, isDropdownActive, loading } = this.state;
+    const { topics, isDropdownActive, loading, isModalActive } = this.state;
 
     return (
+      <div>
       <nav className="nav">
         <div>
           <div className={`dropdown ${isDropdownActive ? 'is-active' : ''}`}>
@@ -56,9 +62,20 @@ class Nav extends Component {
         <h1>NC NEWS<span className="flash">_</span></h1>
       </div>
       <div>
-        Maybe add search here later
+        <button className="button nav-post" onClick={this.toggleModal}>Post new Article</button>
       </div>
       </nav>
+
+      <div class={`modal ${isModalActive ? 'is-active' : ''}`}>
+        <div class="modal-background" onClick={this.toggleModal}></div>
+        <div class="modal-content">
+          <div className="box">
+            <p>modal box</p>
+          </div>
+        </div>
+          <button class="modal-close is-large" aria-label="close" onClick={this.toggleModal}></button>
+        </div>
+      </div>
     );
   };
 };
