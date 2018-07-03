@@ -5,6 +5,8 @@ import Comment from "./Comment.js";
 
 import "../styles/SinglePost.css";
 
+import api from "../methods/api"
+
 class SinglePost extends Component {
   state = {
     post: {},
@@ -16,29 +18,22 @@ class SinglePost extends Component {
 
   componentDidMount() {
     const { postId } = this.props.match.params;
-    fetch(`https://fast-hamlet-42674.herokuapp.com/api/articles/${postId}`)
-      .then(res => {
-        return res.json();
-      })
-      .then(post => {
-        this.setState({ post });
-      })
-      .catch(err => console.log(err));
 
-    fetch(
-      `https://fast-hamlet-42674.herokuapp.com/api/articles/${postId}/comments`
-    )
-      .then(res => {
-        return res.json();
-      })
-      .then(allComments => {
-        const { comments } = allComments;
-        if (!comments) {
-          return this.setState({ comments: [] })
-        }
-        this.setState({ comments });
-      })
-      .catch(err => console.log(err));
+    api.getArticle(postId)
+    .then(post => {
+      this.setState({ post });
+    })
+    .catch(err => console.log(err));
+
+    api.getArticleComments(postId)
+    .then(allComments => {
+      const { comments } = allComments;
+      if (!comments) {
+        return this.setState({ comments: [] })
+      }
+      this.setState({ comments });
+    })
+    .catch(err => console.log(err));
   }
 
   goBack = () => {
@@ -58,12 +53,7 @@ class SinglePost extends Component {
   };
 
   deleteSingleComment = (commentId) => {
-    fetch(`https://fast-hamlet-42674.herokuapp.com/api/comments/${commentId}`, {
-      method: 'DELETE'
-    })
-    .then(res => {
-      return res.json()
-    })
+    api.deleteComment(commentId)
     .then(commentDel => {
       this.setState({
         comments: [...this.state.comments].filter(com => {
@@ -80,29 +70,23 @@ class SinglePost extends Component {
 
     if (!articleComment.length) return;
 
-    fetch(
-      `https://fast-hamlet-42674.herokuapp.com/api/articles/${postId}/comments`,
-      {
-        method: "POST",
-        body: JSON.stringify({ comment: articleComment }),
-        headers: { "Content-Type": "application/json" }
-      })
-      .then(res => {
-        if (res.status !== 201) {
-          this.setState({
-            postStatus: "error"
-          });
-        } 
-        return res.json();
-      })
-      .then(comment => {
+    api.postArticleComment(postId, articleComment)
+    .then(res => {
+      if (res.status !== 201) {
         this.setState({
-          articleComment: "",
-          comments: this.state.comments.concat([comment.comment]),
-          postStatus: "success"
+          postStatus: "error"
         });
-      })
-      .catch(err => console.log(err));
+      } 
+      return res.json();
+    })
+    .then(comment => {
+      this.setState({
+        articleComment: "",
+        comments: this.state.comments.concat([comment.comment]),
+        postStatus: "success"
+      });
+    })
+    .catch(err => console.log(err));
   };
 
   render() {

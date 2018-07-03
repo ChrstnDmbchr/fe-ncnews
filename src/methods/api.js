@@ -19,3 +19,38 @@ exports.getUser = (username) => {
     return res.json();
   })
 };
+
+exports.getArticle = (postId) => {
+  return fetch(`https://fast-hamlet-42674.herokuapp.com/api/articles/${postId}`)
+  .then(res => {
+    return res.json();
+  })
+};
+
+exports.getArticleComments = (postId) => {
+  return fetch(
+    `https://fast-hamlet-42674.herokuapp.com/api/articles/${postId}/comments`
+  )
+  .then(res => {
+    return res.json();
+  })
+}
+
+exports.deleteComment = (commentId) => {
+  return fetch(`https://fast-hamlet-42674.herokuapp.com/api/comments/${commentId}`, {
+    method: 'DELETE'
+  })
+  .then(res => {
+    return res.json()
+  })
+}
+
+exports.postArticleComment = (postId, articleComment) => {
+  return fetch(
+    `https://fast-hamlet-42674.herokuapp.com/api/articles/${postId}/comments`,
+    {
+      method: "POST",
+      body: JSON.stringify({ comment: articleComment }),
+      headers: { "Content-Type": "application/json" }
+    })
+}
