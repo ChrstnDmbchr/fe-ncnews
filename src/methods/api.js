@@ -54,3 +54,13 @@ exports.postArticleComment = (postId, articleComment) => {
       headers: { "Content-Type": "application/json" }
     })
 }
+
+exports.getTopicArticles = (topicId) => {
+  return fetch(
+    topicId === 'Frontpage' ? `https://fast-hamlet-42674.herokuapp.com/api/articles`
+    :`https://fast-hamlet-42674.herokuapp.com/api/topics/${topicId}/articles`
+  )
+  .then(res => {
+    return res.json();
+  })
+}
