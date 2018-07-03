@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import "../styles/Post.css"
+import api from "../methods/api"
 
 class Post extends Component {
   state = {
@@ -10,12 +11,7 @@ class Post extends Component {
   }
 
   postUpVote = () => {
-    fetch(`https://fast-hamlet-42674.herokuapp.com/api/articles/${this.state.id}?vote=up`,{
-      method: 'PUT'
-    })
-    .then(res => {
-      return res.json();
-    })
+    api.articleUpDownVote(this.state.id, 'up')
     .then(upvote => {
       this.setState({
         votes: upvote.vote_count
@@ -25,12 +21,7 @@ class Post extends Component {
   }
 
   postDownVote = () => {
-    fetch(`https://fast-hamlet-42674.herokuapp.com/api/articles/${this.state.id}?vote=down`,{
-      method: 'PUT'
-    })
-    .then(res => {
-      return res.json();
-    })
+    api.articleUpDownVote(this.state.id, 'down')
     .then(downvote => {
       this.setState({
         votes: downvote.vote_count

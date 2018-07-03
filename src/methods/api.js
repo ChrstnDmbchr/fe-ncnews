@@ -64,3 +64,12 @@ exports.getTopicArticles = (topicId) => {
     return res.json();
   })
 }
+
+exports.articleUpDownVote = (id, vote) => {
+  return fetch(`https://fast-hamlet-42674.herokuapp.com/api/articles/${id}?vote=${vote}`,{
+    method: 'PUT'
+  })
+  .then(res => {
+    return res.json();
+  })
+}
