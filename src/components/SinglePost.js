@@ -66,7 +66,7 @@ class SinglePost extends Component {
 
   postArticleComment = () => {
     const { postId } = this.props.match.params;
-    const { articleComment, postCommentLoading } = this.state;
+    const { articleComment } = this.state;
 
     if (!articleComment.length) return;
 
