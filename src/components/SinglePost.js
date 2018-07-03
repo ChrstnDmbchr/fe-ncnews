@@ -66,27 +66,31 @@ class SinglePost extends Component {
 
   postArticleComment = () => {
     const { postId } = this.props.match.params;
-    const { articleComment } = this.state;
+    const { articleComment, postCommentLoading } = this.state;
 
     if (!articleComment.length) return;
 
-    api.postArticleComment(postId, articleComment)
-    .then(res => {
-      if (res.status !== 201) {
+    this.setState({ postCommentLoading: true }, () => {
+      api.postArticleComment(postId, articleComment)
+      .then(res => {
+        if (res.status !== 201) {
+          this.setState({
+            postStatus: "error",
+            postCommentLoading: false
+          });
+        } 
+        return res.json();
+      })
+      .then(comment => {
         this.setState({
-          postStatus: "error"
+          articleComment: "",
+          comments: this.state.comments.concat([comment.comment]),
+          postStatus: "success",
+          postCommentLoading: false
         });
-      } 
-      return res.json();
+      })
+      .catch(err => console.log(err));
     })
-    .then(comment => {
-      this.setState({
-        articleComment: "",
-        comments: this.state.comments.concat([comment.comment]),
-        postStatus: "success"
-      });
-    })
-    .catch(err => console.log(err));
   };
 
   render() {
@@ -124,7 +128,7 @@ class SinglePost extends Component {
         </div>
         <div className="singlepost-postbutton">
           <a
-            className={`button is-light is-medium${postCommentLoading ? 'is-loading' : ''}`}
+            className={`button is-light is-medium ${postCommentLoading ? 'is-loading' : ''}`}
             onClick={this.postArticleComment}
           >
             Post Comment
