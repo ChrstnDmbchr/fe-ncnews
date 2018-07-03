@@ -153,7 +153,8 @@ class Nav extends Component {
                   <button className={`button is-link ${postArticleLoading ? 'is-loading' : ''}`} onClick={(e) => this.postNewArticle(e, {
                     title: newArticleTitle,
                     body: newArticleBody
-                  }, this.refs.topicSelect.value)}>Post Article</button>
+                  }, this.refs.topicSelect.value)}
+                  disabled={postStatus.length}>Post Article</button>
                 </div>
                 <div className="control">
                   <button className="button is-text" onClick={this.toggleModal}>Close</button>
@@ -164,12 +165,10 @@ class Nav extends Component {
                 <div />
               ) : postStatus === "success" ? (
                 <div className="singlepost-notification notification is-primary">
-                  <button className="delete" onClick={this.toggleModal} />
-                  <strong>Post Successful!</strong>
+                  <strong>Post Successful! <br/> Click Close to return</strong>
                 </div>
               ) : (
                 <div className="singlepost-notification notification is-danger">
-                  <button className="delete" onClick={this.toggleModal} />
                   <strong>Error - there was an issue when trying to process your post.</strong>
                 </div>
               )}
