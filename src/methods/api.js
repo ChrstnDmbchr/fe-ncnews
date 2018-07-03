@@ -12,3 +12,10 @@ exports.postNewArticle = (postData, topicId) => {
     headers: { "Content-Type": "application/json" }
   })
 }
+
+exports.getUser = (username) => {
+  return fetch(`https://fast-hamlet-42674.herokuapp.com/api/users/${username}`)
+  .then(res => {
+    return res.json();
+  })
+};

@@ -4,6 +4,8 @@ import Post from "./Post"
 
 import "../styles/UserProfile.css";
 
+import api from "../methods/api"
+
 class UserProfile extends Component {
   state = {
     loading: true,
@@ -13,14 +15,11 @@ class UserProfile extends Component {
 
   componentDidMount() {
     const { username } = this.props.match.params;
-    fetch(`https://fast-hamlet-42674.herokuapp.com/api/users/${username}`)
-      .then(res => {
-        return res.json();
-      })
-      .then(user => {
-        this.setState({ user, loading: false });
-      })
-      .catch(err => console.log(err));
+    api.getUser(username)
+    .then(user => {
+      this.setState({ user, loading: false });
+    })
+    .catch(err => console.log(err));
   }
 
   goBack = () => {

@@ -58,7 +58,7 @@ class Post extends Component {
           <div className="post-info">
             {created_by.username ? <p>Created By: <Link to={`/users/${created_by.username}`}>{created_by.username}</Link></p> : <p />}
             {belongs_to.title ? <p>Topic: {belongs_to.title}</p> : <p />}
-            {comment_count ? <p>Comments: <Link to={`/post/${this.props.id}`}>{comment_count}</Link></p> : <p>Comments: 0</p>}
+            {comment_count ? <p>Comments: <Link to={`/post/${this.props.id}`}>{comment_count}</Link></p> : <p />}
           </div>
         </div>
       </div>
