@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import "../styles/Articles.css"
 
 import Post from "./Post"
+import api from "../methods/api"
 
 class Articles extends Component {
   state= {
@@ -13,13 +14,8 @@ class Articles extends Component {
 
   componentDidMount() {
     const { topicId } = this.props.match.params
-    fetch(
-      topicId === 'Frontpage' ? `https://fast-hamlet-42674.herokuapp.com/api/articles`
-      :`https://fast-hamlet-42674.herokuapp.com/api/topics/${topicId}/articles`
-    )
-    .then(res => {
-      return res.json();
-    })
+
+    api.getTopicArticles(topicId)
     .then(allArticles => {
       const { articles } = allArticles;
       this.setState({ articles, loading: false, title: topicId });
@@ -31,13 +27,8 @@ class Articles extends Component {
     if(newProps.match.params.topicId === this.props.match.params.topicId) return;
 
     const { topicId } = newProps.match.params
-    fetch(
-      topicId === 'Frontpage' ? `https://fast-hamlet-42674.herokuapp.com/api/articles`
-      :`https://fast-hamlet-42674.herokuapp.com/api/topics/${topicId}/articles`
-    )
-    .then(res => {
-      return res.json();
-    })
+    
+    api.getTopicArticles(topicId)
     .then(allArticles => {
       const { articles } = allArticles;
       this.setState({ articles, loading: false, title: topicId });
@@ -47,7 +38,12 @@ class Articles extends Component {
 
   render() {
     const { articles, loading, title } = this.state
-    return (
+    return loading ? 
+    ( <div className="app-loading animated infinite pulse">
+        <h1>Loading...</h1>
+      </div>)
+    :
+    (
       <div className="articles">
         <div className="articles-banner">
           <h1 className="articles-title">{loading ? '' : title === 'Frontpage' ? 'Frontpage' : articles[0].belongs_to.title}</h1>

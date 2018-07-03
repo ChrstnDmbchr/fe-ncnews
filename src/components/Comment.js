@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 import "../styles/Comment.css";
+import api from "../methods/api"
 
 class Comment extends Component {
   state = {
@@ -10,35 +11,23 @@ class Comment extends Component {
   };
 
   postUpVote = () => {
-    fetch(
-      `https://fast-hamlet-42674.herokuapp.com/api/comments/${this.state.id}?vote=up`,{
-        method: "PUT"
-      })
-      .then(res => {
-        return res.json();
-      })
-      .then(upvote => {
-        this.setState({
-          votes: upvote.vote_count
-        });
-      })
-      .catch(err => console.log(err));
+    api.commentUpDownVote(this.state.id, 'up')
+    .then(upvote => {
+      this.setState({
+        votes: upvote.vote_count
+      });
+    })
+    .catch(err => console.log(err));
   };
 
   postDownVote = () => {
-    fetch(
-      `https://fast-hamlet-42674.herokuapp.com/api/comments/${this.state.id}?vote=down`,{
-        method: "PUT"
-      })
-      .then(res => {
-        return res.json();
-      })
-      .then(downvote => {
-        this.setState({
-          votes: downvote.vote_count
-        });
-      })
-      .catch(err => console.log(err));
+    api.commentUpDownVote(this.state.id, 'down')
+    .then(downvote => {
+      this.setState({
+        votes: downvote.vote_count
+      });
+    })
+    .catch(err => console.log(err));
   };
 
   render() {

@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 
 import "../styles/Nav.css"
 
+import api from "../methods/api"
+
 class Nav extends Component {
   state= {
     topics: this.props.topics,
@@ -38,6 +40,8 @@ class Nav extends Component {
 
   postNewArticle = (e, postData, topicTitle) => {
     e.preventDefault();
+    if(!postData.title.length || !postData.body.length) return;
+    
     this.setState({ 
       postArticleLoading: !this.state.postArticleLoading,
       postStatus: ''
@@ -46,12 +50,8 @@ class Nav extends Component {
     const topicId = this.state.topics.filter(topic => {
       return topic.title === topicTitle
     })[0]._id
-    
-    fetch(`https://fast-hamlet-42674.herokuapp.com/api/topics/${topicId}/articles`,{
-      method: "POST",
-      body: JSON.stringify({ title: postData.title, body: postData.body }),
-      headers: { "Content-Type": "application/json" }
-    })
+
+    api.postNewArticle(postData, topicId)
     .then(res => {
       if (res.status !== 201) {
         this.setState({
@@ -80,40 +80,40 @@ class Nav extends Component {
     const { topics, isDropdownActive, loading, isModalActive, postArticleLoading, newArticleTitle, newArticleBody, postStatus } = this.state;
 
     return (
-      <div>
-      <nav className="nav">
-        <div>
-          <div className={`dropdown ${isDropdownActive ? 'is-active' : ''}`}>
-            <div className="dropdown-trigger">
-              <button onClick={this.toggleDropdown} className="button" aria-haspopup="true" aria-controls="dropdown-menu">
-              <span>Topics</span>
-              <span className="icon is-small">
-                <i className="fa fa-sort-desc" aria-hidden="true"></i>
-              </span>
-              </button>
-            </div>
-          <div className="dropdown-menu" id="dropdown-menu" role="menu">
-            <div className="dropdown-content">
-              <Link key={'frontpage'} to='/topics/Frontpage' className="dropdown-item" onClick={this.toggleDropdown}>
-                Frontpage
-              </Link>
-              {loading ? '' : topics.map(topic => {
-                return (
-                  <Link key={topic._id} to={`/topics/${topic._id}`} className="dropdown-item" onClick={this.toggleDropdown}>
-                    {topic.title}
-                  </Link>
-                )
-              })}
+      <div> 
+        <nav className="nav">
+          <div>
+            <div className={`dropdown ${isDropdownActive ? 'is-active' : ''}`}>
+              <div className="dropdown-trigger">
+                <button onClick={this.toggleDropdown} className="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                <span>Topics</span>
+                <span className="icon is-small">
+                  <i className="fa fa-sort-desc" aria-hidden="true"></i>
+                </span>
+                </button>
+              </div>
+            <div className="dropdown-menu" id="dropdown-menu" role="menu">
+              <div className="dropdown-content">
+                <Link key={'frontpage'} to='/topics/Frontpage' className="dropdown-item" onClick={this.toggleDropdown}>
+                  Frontpage
+                </Link>
+                {loading ? '' : topics.map(topic => {
+                  return (
+                    <Link key={topic._id} to={`/topics/${topic._id}`} className="dropdown-item" onClick={this.toggleDropdown}>
+                      {topic.title}
+                    </Link>
+                  )
+                })}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className="nav-title">
-        <h1>NC NEWS<span className="flash">_</span></h1>
-      </div>
-      <div>
-        <button className="button nav-post" onClick={this.toggleModal}>Post new Article</button>
-      </div>
+        <div className="nav-title">
+          <h1>NC NEWS<span className="flash">_</span></h1>
+        </div>
+        <div>
+          <button className="button nav-post" onClick={this.toggleModal}>Post new Article</button>
+        </div>
       </nav>
 
       <div className={`modal ${isModalActive ? 'is-active' : ''}`}>
@@ -153,7 +153,8 @@ class Nav extends Component {
                   <button className={`button is-link ${postArticleLoading ? 'is-loading' : ''}`} onClick={(e) => this.postNewArticle(e, {
                     title: newArticleTitle,
                     body: newArticleBody
-                  }, this.refs.topicSelect.value)}>Post Article</button>
+                  }, this.refs.topicSelect.value)}
+                  disabled={postStatus.length}>Post Article</button>
                 </div>
                 <div className="control">
                   <button className="button is-text" onClick={this.toggleModal}>Close</button>
@@ -164,12 +165,10 @@ class Nav extends Component {
                 <div />
               ) : postStatus === "success" ? (
                 <div className="singlepost-notification notification is-primary">
-                  <button className="delete" onClick={this.toggleModal} />
-                  <strong>Post Successful!</strong>
+                  <strong>Post Successful! <br/> Click Close to return</strong>
                 </div>
               ) : (
                 <div className="singlepost-notification notification is-danger">
-                  <button className="delete" onClick={this.toggleModal} />
                   <strong>Error - there was an issue when trying to process your post.</strong>
                 </div>
               )}
