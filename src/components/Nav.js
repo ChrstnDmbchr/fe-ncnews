@@ -80,40 +80,40 @@ class Nav extends Component {
     const { topics, isDropdownActive, loading, isModalActive, postArticleLoading, newArticleTitle, newArticleBody, postStatus } = this.state;
 
     return (
-      <div>
-      <nav className="nav">
-        <div>
-          <div className={`dropdown ${isDropdownActive ? 'is-active' : ''}`}>
-            <div className="dropdown-trigger">
-              <button onClick={this.toggleDropdown} className="button" aria-haspopup="true" aria-controls="dropdown-menu">
-              <span>Topics</span>
-              <span className="icon is-small">
-                <i className="fa fa-sort-desc" aria-hidden="true"></i>
-              </span>
-              </button>
-            </div>
-          <div className="dropdown-menu" id="dropdown-menu" role="menu">
-            <div className="dropdown-content">
-              <Link key={'frontpage'} to='/topics/Frontpage' className="dropdown-item" onClick={this.toggleDropdown}>
-                Frontpage
-              </Link>
-              {loading ? '' : topics.map(topic => {
-                return (
-                  <Link key={topic._id} to={`/topics/${topic._id}`} className="dropdown-item" onClick={this.toggleDropdown}>
-                    {topic.title}
-                  </Link>
-                )
-              })}
+      <div> 
+        <nav className="nav">
+          <div>
+            <div className={`dropdown ${isDropdownActive ? 'is-active' : ''}`}>
+              <div className="dropdown-trigger">
+                <button onClick={this.toggleDropdown} className="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                <span>Topics</span>
+                <span className="icon is-small">
+                  <i className="fa fa-sort-desc" aria-hidden="true"></i>
+                </span>
+                </button>
+              </div>
+            <div className="dropdown-menu" id="dropdown-menu" role="menu">
+              <div className="dropdown-content">
+                <Link key={'frontpage'} to='/topics/Frontpage' className="dropdown-item" onClick={this.toggleDropdown}>
+                  Frontpage
+                </Link>
+                {loading ? '' : topics.map(topic => {
+                  return (
+                    <Link key={topic._id} to={`/topics/${topic._id}`} className="dropdown-item" onClick={this.toggleDropdown}>
+                      {topic.title}
+                    </Link>
+                  )
+                })}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className="nav-title">
-        <h1>NC NEWS<span className="flash">_</span></h1>
-      </div>
-      <div>
-        <button className="button nav-post" onClick={this.toggleModal}>Post new Article</button>
-      </div>
+        <div className="nav-title">
+          <h1>NC NEWS<span className="flash">_</span></h1>
+        </div>
+        <div>
+          <button className="button nav-post" onClick={this.toggleModal}>Post new Article</button>
+        </div>
       </nav>
 
       <div className={`modal ${isModalActive ? 'is-active' : ''}`}>

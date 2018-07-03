@@ -38,7 +38,12 @@ class Articles extends Component {
 
   render() {
     const { articles, loading, title } = this.state
-    return (
+    return loading ? 
+    ( <div className="app-loading animated infinite pulse">
+        <h1>Loading...</h1>
+      </div>)
+    :
+    (
       <div className="articles">
         <div className="articles-banner">
           <h1 className="articles-title">{loading ? '' : title === 'Frontpage' ? 'Frontpage' : articles[0].belongs_to.title}</h1>
