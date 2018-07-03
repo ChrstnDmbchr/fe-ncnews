@@ -15,16 +15,17 @@ class UserProfile extends Component {
 
   componentDidMount() {
     const { username } = this.props.match.params;
+
     api.getUser(username)
     .then(user => {
       this.setState({ user, loading: false });
     })
     .catch(err => console.log(err));
-  }
+  };
 
   goBack = () => {
-    this.props.history.goBack()
-  }
+    this.props.history.goBack();
+  };
 
   render() {
     const { loading, username, user } = this.state;
