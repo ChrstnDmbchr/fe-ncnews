@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 
 import "../styles/Nav.css"
 
+import api from "../methods/api"
+
 class Nav extends Component {
   state= {
     topics: this.props.topics,
@@ -38,6 +40,8 @@ class Nav extends Component {
 
   postNewArticle = (e, postData, topicTitle) => {
     e.preventDefault();
+    if(!postData.title.length || !postData.body.length) return;
+    
     this.setState({ 
       postArticleLoading: !this.state.postArticleLoading,
       postStatus: ''
@@ -46,12 +50,8 @@ class Nav extends Component {
     const topicId = this.state.topics.filter(topic => {
       return topic.title === topicTitle
     })[0]._id
-    
-    fetch(`https://fast-hamlet-42674.herokuapp.com/api/topics/${topicId}/articles`,{
-      method: "POST",
-      body: JSON.stringify({ title: postData.title, body: postData.body }),
-      headers: { "Content-Type": "application/json" }
-    })
+
+    api.postNewArticle(postData, topicId)
     .then(res => {
       if (res.status !== 201) {
         this.setState({
