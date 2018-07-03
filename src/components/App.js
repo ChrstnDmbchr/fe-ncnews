@@ -7,6 +7,8 @@ import UserProfile from "./UserProfile.js";
 import SinglePost from "./SinglePost.js";
 import PageNotFound from "./PageNotFound";
 
+import api from "../methods/api"
+
 class App extends Component {
   state = {
     topics: [],
@@ -14,10 +16,7 @@ class App extends Component {
   };
 
   componentDidMount () {
-    fetch('https://fast-hamlet-42674.herokuapp.com/api/topics')
-    .then(res => {
-      return res.json();
-    })
+    api.getAllTopics()
     .then(allTopics => {
       const { topics } = allTopics
       this.setState({ topics, loading: false });
