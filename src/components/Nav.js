@@ -15,6 +15,7 @@ class Nav extends Component {
     newArticleBody: '',
     postArticleLoading: false,
     postStatus: '',
+    newCreatedArticleID: '',
   };
 
   toggleDropdown = () => {
@@ -63,7 +64,8 @@ class Nav extends Component {
     .then(newArticle => {
       this.setState({ 
         postArticleLoading: !this.state.postArticleLoading,
-        postStatus: "success" 
+        postStatus: "success",
+        newCreatedArticleID: newArticle.article._id
       })
     })
     .catch(err => console.log(err))
@@ -77,7 +79,7 @@ class Nav extends Component {
   };
 
   render() {
-    const { topics, isDropdownActive, loading, isModalActive, postArticleLoading, newArticleTitle, newArticleBody, postStatus } = this.state;
+    const { topics, isDropdownActive, loading, isModalActive, postArticleLoading, newArticleTitle, newArticleBody, postStatus, newCreatedArticleID } = this.state;
 
     return (
       <div> 
@@ -154,7 +156,7 @@ class Nav extends Component {
                     title: newArticleTitle,
                     body: newArticleBody
                   }, this.refs.topicSelect.value)}
-                  disabled={postStatus.length}>Post Article</button>
+                  disabled={!newArticleTitle.length || postStatus.length}>Post Article</button>
                 </div>
                 <div className="control">
                   <button className="button is-text" onClick={this.toggleModal}>Close</button>
@@ -165,7 +167,12 @@ class Nav extends Component {
                 <div />
               ) : postStatus === "success" ? (
                 <div className="singlepost-notification notification is-primary">
-                  <strong>Post Successful! <br/> Click Close to return</strong>
+                  <strong>Post Successful! 
+                    <br/> 
+                    Click Close to return.
+                    <br />
+                    Or click <Link onClick={this.toggleModal} to={`/post/${newCreatedArticleID}`}>HERE</Link> to go to your article.
+                  </strong>
                 </div>
               ) : (
                 <div className="singlepost-notification notification is-danger">

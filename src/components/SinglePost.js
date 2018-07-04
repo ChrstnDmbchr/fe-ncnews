@@ -129,7 +129,7 @@ class SinglePost extends Component {
         <div className="singlepost-postbutton">
           <a
             className={`button is-light is-medium ${postCommentLoading ? 'is-loading' : ''}`}
-            onClick={this.postArticleComment}
+            onClick={this.postArticleComment} disabled={!articleComment.length}
           >
             Post Comment
           </a>
