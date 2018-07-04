@@ -20,16 +20,16 @@ exports.getUser = (username) => {
   })
 };
 
-exports.getArticle = (postId) => {
-  return fetch(`https://fast-hamlet-42674.herokuapp.com/api/articles/${postId}`)
+exports.getArticle = (articleId) => {
+  return fetch(`https://fast-hamlet-42674.herokuapp.com/api/articles/${articleId}`)
   .then(res => {
     return res.json();
   })
 };
 
-exports.getArticleComments = (postId) => {
+exports.getArticleComments = (articleId) => {
   return fetch(
-    `https://fast-hamlet-42674.herokuapp.com/api/articles/${postId}/comments`
+    `https://fast-hamlet-42674.herokuapp.com/api/articles/${articleId}/comments`
   )
   .then(res => {
     return res.json();
@@ -45,9 +45,9 @@ exports.deleteComment = (commentId) => {
   })
 }
 
-exports.postArticleComment = (postId, articleComment) => {
+exports.postArticleComment = (articleId, articleComment) => {
   return fetch(
-    `https://fast-hamlet-42674.herokuapp.com/api/articles/${postId}/comments`,
+    `https://fast-hamlet-42674.herokuapp.com/api/articles/${articleId}/comments`,
     {
       method: "POST",
       body: JSON.stringify({ comment: articleComment }),
@@ -55,10 +55,10 @@ exports.postArticleComment = (postId, articleComment) => {
     })
 }
 
-exports.getTopicArticles = (topicId) => {
+exports.getTopicArticles = (articleId) => {
   return fetch(
-    topicId === 'Frontpage' ? `https://fast-hamlet-42674.herokuapp.com/api/articles`
-    :`https://fast-hamlet-42674.herokuapp.com/api/topics/${topicId}/articles`
+    articleId === 'Frontpage' ? `https://fast-hamlet-42674.herokuapp.com/api/articles`
+    :`https://fast-hamlet-42674.herokuapp.com/api/topics/${articleId}/articles`
   )
   .then(res => {
     return res.json();
