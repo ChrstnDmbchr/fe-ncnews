@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import Comment from "./Comment.js";
 
-import "../styles/SinglePost.css";
+import "../styles/SingleArticle.css";
 
 import api from "../methods/api"
 
@@ -17,15 +17,15 @@ class SinglePost extends Component {
   };
 
   componentDidMount() {
-    const { postId } = this.props.match.params;
+    const { articleId } = this.props.match.params;
 
-    api.getArticle(postId)
+    api.getArticle(articleId)
     .then(post => {
       this.setState({ post });
     })
     .catch(err => console.log(err));
 
-    api.getArticleComments(postId)
+    api.getArticleComments(articleId)
     .then(allComments => {
       const { comments } = allComments;
       if (!comments) {
@@ -65,13 +65,13 @@ class SinglePost extends Component {
   };
 
   postArticleComment = () => {
-    const { postId } = this.props.match.params;
+    const { articleId } = this.props.match.params;
     const { articleComment } = this.state;
 
     if (!articleComment.length) return;
 
     this.setState({ postCommentLoading: true }, () => {
-      api.postArticleComment(postId, articleComment)
+      api.postArticleComment(articleId, articleComment)
       .then(res => {
         if (res.status !== 201) {
           this.setState({
@@ -98,7 +98,7 @@ class SinglePost extends Component {
     return (
       <div className="singlepost">
         <div className="singlepost-banner">
-          <h1 className="singlepost-title">Post</h1>
+          <h1 className="singlepost-title">Article</h1>
         </div>
         <div className="singlepost-info">
           <div className="singlepost-info-back">

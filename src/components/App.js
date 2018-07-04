@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import Nav from "./Nav.js";
 import Articles from "./Articles.js";
 import UserProfile from "./UserProfile.js";
-import SinglePost from "./SinglePost.js";
+import SingleArticle from "./SingleArticle";
 import PageNotFound from "./PageNotFound";
 
 import api from "../methods/api"
@@ -37,7 +37,7 @@ class App extends Component {
               }} />
               <Route path="/topics/:topicId" component={Articles} />
               <Route path="/users/:username" component={UserProfile} />
-              <Route exact path="/post/:postId" component={SinglePost} />
+              <Route exact path="/article/:articleId" component={SingleArticle} />
               <Route component={PageNotFound} />
             </Switch>
           </div>
