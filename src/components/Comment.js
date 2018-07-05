@@ -48,11 +48,11 @@ class Comment extends Component {
         </div>
         <div className="comment-body">
           <div className="comment-body-delete">
-            <i
+            {created_by === 'hackaccount' ? <i
               className="fa fa-times-circle"
               aria-hidden="true"
               onClick={() => deleteSingleComment(id)}
-            />
+            /> : <div />}
           </div>
           <h5 className="subtitle">{body}</h5>
           <div className="comment-info">
