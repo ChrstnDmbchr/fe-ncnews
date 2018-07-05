@@ -111,7 +111,7 @@ class Nav extends Component {
           </div>
         </div>
         <div className="nav-title">
-          <h1>NC NEWS<span className="flash">_</span></h1>
+          <h1><i className="fa fa-angle-up nav-title-icon"></i> NC NEWS <i className="fa fa-angle-down nav-title-icon"></i></h1> 
         </div>
         <div>
           <button className="button nav-post" onClick={this.toggleModal}>Post new Article</button>

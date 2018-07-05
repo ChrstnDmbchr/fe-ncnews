@@ -15,14 +15,6 @@
   color: red;
 }
 
-.flash {
-  animation: blinker 1s step-start 0s infinite;
-}
-
-@keyframes blinker {  
-  50% { opacity: 0.0; }
-}
-
 .dropdown {
   margin-top: 6px;
 }
