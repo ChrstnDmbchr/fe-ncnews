@@ -6,6 +6,8 @@ Northcoders News has articles which are divided into topics. Each article has us
 
 The application is hosted [on Heroku](https://secret-beach-11387.herokuapp.com/)
 
+When using the application you will be logged in as the user 'hackaccount'
+
 ### Further Information
 
 Northcoders News is a React.js application.
